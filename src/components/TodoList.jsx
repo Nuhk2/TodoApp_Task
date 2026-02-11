@@ -3,7 +3,7 @@ import TodoItem from "../components/TodoItem.jsx";
 function TodoList({ todos, onDelete, onToggle, onEdit }) {
 
     return (
-        <ul>
+        <ul className="space-y-3">
             {todos.map(todo => (
 
                 <TodoItem

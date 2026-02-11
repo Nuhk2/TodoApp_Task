@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TodoInput from './components/TodoInput'
 import TodoList from './components/TodoList'
 
 function App() {
 
-  //Initializie the state as an empty array to hold the list of todos
-  const [todos, setTodos] = useState([]);
+  //Initialize the state from localStorage on first load
+  const [todos, setTodos] = useState(() => {
+    const storedTodos = localStorage.getItem("todos");
+    return storedTodos ? JSON.parse(storedTodos) : [];
+  });
 
   // Logic for adding a new todo item to the list
   const addTodo =(text) => {
@@ -38,6 +41,11 @@ function App() {
       todo.id === id ? { ...todo, text: newText } : todo
     ));
   };
+
+  // Save todos to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     

@@ -18,12 +18,13 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
      if (!todo) return null;
 
     return (
-        <li> 
-            <div className="todo-content">
+        <li className="flex items-center gap-4 bg-slate-800 p-4 rounded-lg border border-slate-700 shadow-sm"> 
+            <div className="flex items-center gap-3 flex-1 min-w-0">
                 <input 
                   type="checkbox" 
                   checked={todo.completed} 
                   onChange={() => onToggle(todo.id)} 
+                  className="w-5 h-5 cursor-pointer flex-shrink-0"
                 />
                 {isEditing ? (
                   <input
@@ -36,12 +37,7 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
                     autoFocus
                   />
                 ) : (
-                  <span 
-                    style={{ 
-                      textDecoration: todo.completed ? 'line-through' : 'none',
-                      color: todo.completed ? '#888' : 'white' 
-                    }}
-                  >
+                  <span className={`text-left break-words overflow-hidden flex-1 ${todo.completed ? 'line-through text-slate-500' : 'text-slate-200'}`}>
                     {todo.text}
                   </span>
                 )}
