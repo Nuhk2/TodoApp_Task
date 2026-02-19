@@ -3,6 +3,9 @@ import './App.css'
 import TodoInput from './components/TodoInput'
 import TodoList from './components/TodoList'
 
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
 
   //Initialize the state from localStorage on first load
@@ -21,18 +24,42 @@ function App() {
     };
     setTodos([...todos, newTodo]);
 
+    toast.success("Task Added! ",{
+      position: "bottom-right",
+      theme: "colored",
+
+    });
     };
 
   // Logic to Delete a todo item from the list
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
+
+    toast.error("Task Deleted! ", {
+      position: "bottom-right",
+      theme: "colored",
+    });
   };
 
   // Logic to toggle the completed status of a todo item
   const toggleComplete = (id) => {
+    const todo = todos.find(todo => todo.id === id);
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
+
+    if (!todo.completed) {
+      toast.success("Task Completed! ", {
+        position: "bottom-right",
+        theme: "colored",
+      });
+    } else {
+      toast.info("Status changed, task pending ", {
+        position: "bottom-right",
+        theme: "colored",
+
+      });
+    }
   };
 
   // Logic to edit a todo item in the list
@@ -40,6 +67,13 @@ function App() {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, text: newText } : todo
     ));
+
+    toast.info("Task Edited!", {
+      position: "bottom-right",
+      theme: "colored",
+
+      
+    });
   };
 
   // Save todos to localStorage whenever they change
@@ -62,8 +96,11 @@ function App() {
         onToggle={toggleComplete} 
         onEdit={editTodo}
       />
+      
+      <ToastContainer />
     </div>
+    
   );
-  }
+};
 
 export default App

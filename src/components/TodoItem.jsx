@@ -19,7 +19,7 @@ function TodoItem({ todo, onDelete, onToggle, onEdit }) {
 
     return (
         <li className="flex items-center gap-4 bg-slate-800 p-4 rounded-lg border border-slate-700 shadow-sm"> 
-            <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="flex items-left flex-1 min-w-0">
                 <input 
                   type="checkbox" 
                   checked={todo.completed} 
